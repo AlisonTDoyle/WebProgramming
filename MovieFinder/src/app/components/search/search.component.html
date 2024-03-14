@@ -1,40 +1,52 @@
 <div class="container">
-    <h1>Search</h1>
-  
-    <nav class="navbar navbar-light bg-light">
-      <div class="container-fluid">
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" #moviename  placeholder="Enter movie name" aria-label="Find movies">
-          <button (click)="getMovieDetails(moviename.value)" class="btn btn-outline-success" type="submit" >Search</button>
-        </form>
-      </div>
-    </nav>  
-  
-    <ul class="pagination" style="margin: 1rem auto; width: fit-content;">
-      <li class="page-item"><a class="page-link" href="#" (click)="getPreviousPage(moviename.value)">Previous</a></li>     
-      <li class="page-item"><a class="page-link" href="#">Page {{this.currentPage}} ({{movieData?.totalResults}} results)</a></li>
-      <li class="page-item"><a class="page-link" href="#" (click)="getNextPage(moviename.value)">Next</a></li>
-    </ul>
-  
+  <h1>Search</h1>
 
-    <div *ngIf="movieData">
-      <div class="row bg-light mt-4 p-4" *ngIf="movieData && movieData.Error">
-        <div class="col-sm-4">
-          <div>
-            <h3>{{movieData.Error}}</h3>
-          </div>
-          </div>
-      </div>
+  <nav class="navbar navbar-dark bg-light rounded">
+    <div class="container-fluid">
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" #moviename placeholder="Enter movie name"
+          aria-label="Find movies">
+        <button (click)="getMovieDetails(moviename.value)" class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
+  </nav>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" *ngIf="movieData">
-      <div class="col"  *ngFor="let movie of movieData.Search">
-        <div class="card mt-3">
-          <img src="{{movie.Poster}}" class="card-img-top img-fluid">
-          <div class="card-body">
-            <h5 class="card-title">{{movie.Title}}</h5>
-          </div>
+  <ul class="pagination" style="margin: 1rem auto; width: fit-content;">
+    <li class="page-item"><a class="page-link" href="#" (click)="getPreviousPage(moviename.value)">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">Page {{this.currentPage}} ({{movieData?.totalResults}}
+        results)</a></li>
+    <li class="page-item"><a class="page-link" href="#" (click)="getNextPage(moviename.value)">Next</a></li>
+  </ul>
+
+
+  <div *ngIf="movieData">
+    <div *ngIf="movieData.Error != null; else movieSearchResults">
+      <div class="card" style="margin: auto; width: 24rem; padding: 0;">
+        <div class="card-header text-bg-danger">
+          <h3>Error:</h3>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{movieData.Error}}</p>
         </div>
       </div>
     </div>
-</div>
+
+    <ng-template #movieSearchResults>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" *ngIf="movieData">
+          <div class="col" *ngFor="let movie of movieData.Search">
+            <div class="card mt-3 text-bg-dark">
+              <div *ngIf="movie.Poster.length>3; else noMoviePosterAvailable">
+                <img src="{{movie.Poster}}" class="card-img-top img-fluid" style="aspect-ratio: 2/3;">
+              </div>
+              <!-- Failed image placeholder -->
+              <ng-template #noMoviePosterAvailable>
+                <h3 style="height: 26rem; margin: 1rem">No poster available</h3>
+            </ng-template>
+              <div class="card-body">
+                <h5 class="card-title">{{movie.Title}}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+    </ng-template>
+  </div>

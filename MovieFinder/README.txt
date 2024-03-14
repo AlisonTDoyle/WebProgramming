@@ -1,3 +1,2 @@
-# MovieFinder
 -> Firebase Link: https://moviefinderapp-9fbc8.firebaseapp.com
 -> Images in /src/app
