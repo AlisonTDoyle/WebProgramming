@@ -7,24 +7,45 @@
         </div>
 
         <div class="form-group mt-2">
-            <button (click)="getMovieDetails(movieName.value)" type="submit" class="btn btn-primary">Get Movie Details</button>
+            <button (click)="getMovieDetails(movieName.value)" type="submit" class="btn btn-primary">Get Movie
+                Details</button>
         </div>
     </form>
 
-    <div class="row bg-light mt-4 p-4" *ngIf="movieData">
-        <div class="col-sm-4">
-            <div>
-                <h3>{{movieData.Error}}</h3>
+    <div *ngIf="movieData">
+        <div class="row">
+            <div *ngIf="movieData.Error != null; else movieInformation" class="card"
+                style="margin: auto; width: 24rem; padding: 0;">
+                <div class="card-header text-bg-danger">
+                    <h3>Error:</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{movieData.Error}}</p>
+                </div>
             </div>
-            <div *ngIf="movieData.Poster.length>3">
-                <img src="{{movieData.Poster}}" alt="Movie Poster">
-            </div>
-        </div>
-        <div class="col-sm-8">
-            <div *ngIf="movieData.Title">
-                <h1>{{movieData.Title}}</h1>
-                <h2>Director: {{movieData.Director}}</h2>
-            </div>
+
+            <ng-template #movieInformation>
+                <div class="card border-secondary" style="margin: 2rem auto; width: 48rem;">
+                    <div class="row">
+                        <div class="col-lg-6 text-bg-secondary">
+                            <div *ngIf="movieData.Poster.length>3; else noMoviePosterAvailable" style="margin: 1rem auto; width: fit-content;">
+                                <img src="{{movieData.Poster}}" alt="Movie Poster"
+                                    style="aspect-ratio: 2/3;" class="rounded">
+                            </div>
+                            <!-- Failed image placeholder -->
+                            <ng-template #noMoviePosterAvailable>
+                                <h3>No poster available</h3>
+                            </ng-template>
+                        </div>
+                        <div class="col-lg-6 text-bg-dark">
+                            <div *ngIf="movieData.Title" style="margin: 1rem;">
+                                <h1>{{movieData.Title}}</h1>
+                                <h3>Director: {{movieData.Director}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
         </div>
     </div>
 </div>

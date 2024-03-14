@@ -10,7 +10,7 @@
       </div>
     </nav>  
   
-    <ul class="pagination">
+    <ul class="pagination" style="margin: 1rem auto; width: fit-content;">
       <li class="page-item"><a class="page-link" href="#" (click)="getPreviousPage(moviename.value)">Previous</a></li>     
       <li class="page-item"><a class="page-link" href="#">Page {{this.currentPage}} ({{movieData?.totalResults}} results)</a></li>
       <li class="page-item"><a class="page-link" href="#" (click)="getNextPage(moviename.value)">Next</a></li>
