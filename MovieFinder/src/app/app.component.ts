@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { SearchTitleComponent } from './components/search-title/search-title.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     RouterOutlet,
     CommonModule,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    NavbarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
